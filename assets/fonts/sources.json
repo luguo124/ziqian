@@ -1,0 +1,37 @@
+[
+  {
+    "family": "liujianmaocao",
+    "url": "https://raw.githubusercontent.com/google/fonts/47d54ca1ebb14fd864695f1d39dc734f39017c33/ofl/liujianmaocao/LiuJianMaoCao-Regular.ttf",
+    "revision": "47d54ca1ebb14fd864695f1d39dc734f39017c33",
+    "bytes": 4951804,
+    "sha256": "cab396b91a5b7c0b4005a35891180d06e6751f5ac261fe680aec65c1ae209033"
+  },
+  {
+    "family": "longcang",
+    "url": "https://raw.githubusercontent.com/google/fonts/47d54ca1ebb14fd864695f1d39dc734f39017c33/ofl/longcang/LongCang-Regular.ttf",
+    "revision": "47d54ca1ebb14fd864695f1d39dc734f39017c33",
+    "bytes": 5162508,
+    "sha256": "e5bf2c3f24ef2327c6f136d8f73e2f9dfdf44896fdbeb35a9515f44777bb91bc"
+  },
+  {
+    "family": "mashanzheng",
+    "url": "https://raw.githubusercontent.com/google/fonts/47d54ca1ebb14fd864695f1d39dc734f39017c33/ofl/mashanzheng/MaShanZheng-Regular.ttf",
+    "revision": "47d54ca1ebb14fd864695f1d39dc734f39017c33",
+    "bytes": 5857936,
+    "sha256": "6d2546bb189c732a8ca29af9e22457b152387d158aa459e4ac2ce1e51788b7fb"
+  },
+  {
+    "family": "zcoolxiaowei",
+    "url": "https://raw.githubusercontent.com/google/fonts/47d54ca1ebb14fd864695f1d39dc734f39017c33/ofl/zcoolxiaowei/ZCOOLXiaoWei-Regular.ttf",
+    "revision": "47d54ca1ebb14fd864695f1d39dc734f39017c33",
+    "bytes": 6313808,
+    "sha256": "a42b620140f493db42f741351dfbf343c0936d58588ee8004b8b2a218d997ff1"
+  },
+  {
+    "family": "zhimangxing",
+    "url": "https://raw.githubusercontent.com/google/fonts/47d54ca1ebb14fd864695f1d39dc734f39017c33/ofl/zhimangxing/ZhiMangXing-Regular.ttf",
+    "revision": "47d54ca1ebb14fd864695f1d39dc734f39017c33",
+    "bytes": 4063532,
+    "sha256": "644e0cae9b40f0b10ab729a01bd32032e3973bac22be3dccae01bf6ae7fde969"
+  }
+]

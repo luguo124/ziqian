@@ -1,10 +1,50 @@
 import { templates, fonts, sealStyles, drawArtwork } from './mini-program.js';
+import { webFonts, loadWebFont } from './web-fonts.js';
+import { initHeroCards } from './hero-cards.js';
 
 const $ = (selector) => document.querySelector(selector);
 const state = { templateId:'plain', text:'山静日长，清风入怀。', author:'', direction:'horizontal', reading:'ltr', font:'song', fontSize:44, spacing:10, align:'center', sealStyle:'ziqian' };
 const preview = $('#preview');
 let filter = 'all';
 let expanded = false;
+let fontLoading = false;
+let fontRequest = 0;
+let requestedFont = 'song';
+fonts.forEach(font => { font.name = webFonts.find(item => item.id === font.id).name; });
+
+function updateDownloadState() {
+  $('.download-button').disabled = fontLoading || state.text.split('\n').length > 4;
+}
+
+async function selectFont(id) {
+  const request = ++fontRequest;
+  requestedFont = id;
+  fontLoading = true;
+  updateDownloadState();
+  $('#fontRetry').hidden = true;
+  $('#fontStatus').textContent = `正在加载${webFonts.find(font => font.id === id).name}，首次使用请稍候…`;
+  $('#fontSelect').setAttribute('aria-busy','true');
+  try {
+    const loaded = await loadWebFont(id);
+    if (request !== fontRequest) return;
+    fonts.find(font => font.id === id).family = `"${loaded.family}", serif`;
+    $('#fontSample').style.fontFamily = `"${loaded.family}", serif`;
+    state.font = id;
+    updatePreview();
+    $('#fontStatus').textContent = `${loaded.name}已应用`;
+  } catch {
+    if (request !== fontRequest) return;
+    $('#fontSelect').value = state.font;
+    $('#fontStatus').textContent = '字体加载失败，已保留当前字形或系统备用字体，请重试。';
+    $('#fontRetry').hidden = false;
+  } finally {
+    if (request === fontRequest) {
+      fontLoading = false;
+      $('#fontSelect').removeAttribute('aria-busy');
+      updateDownloadState();
+    }
+  }
+}
 
 function paint(canvas, artwork) {
   const context = canvas.getContext('2d');
@@ -17,6 +57,7 @@ function updatePreview() {
   const template = templates.find((item) => item.id === state.templateId);
   $('#previewName').textContent = template.name;
   $('#textCount').value = `${[...state.text].length} / 40`;
+  $('#fontSample').textContent = state.text.trim().slice(0,18) || '山静日长，清风入怀。';
   preview.setAttribute('aria-label', `${template.name}模板作品预览：${state.text || '还没有输入文字'}`);
   $('#readingField').hidden = state.direction !== 'vertical';
   document.querySelectorAll('[data-direction]').forEach((button) => {
@@ -27,7 +68,7 @@ function updatePreview() {
   $('#readingSelect').value = state.reading;
   const tooManyLines = state.text.split('\n').length > 4;
   $('#textInput').setCustomValidity(tooManyLines ? '网页试写最多支持 4 行，请减少换行。' : '');
-  $('.download-button').disabled = tooManyLines;
+  updateDownloadState();
   $('#studioStatus').textContent = tooManyLines ? '网页试写最多支持 4 行，请减少换行后再下载。' : '';
 }
 
@@ -91,7 +132,8 @@ $('#studioForm').addEventListener('input', (event) => {
   updatePreview();
 });
 $('#templateSelect').addEventListener('change', (event) => selectTemplate(event.target.value));
-$('#fontSelect').addEventListener('change', (event) => { state.font = event.target.value; updatePreview(); });
+$('#fontSelect').addEventListener('change', (event) => selectFont(event.target.value));
+$('#fontRetry').addEventListener('click',() => { $('#fontSelect').value = requestedFont; selectFont(requestedFont); });
 $('#sealSelect').addEventListener('change', (event) => { state.sealStyle = event.target.value; updatePreview(); });
 $('#readingSelect').addEventListener('change', (event) => { state.reading = event.target.value; updatePreview(); });
 document.querySelectorAll('[data-direction]').forEach((button) => button.addEventListener('click', () => { state.direction = button.dataset.direction; updatePreview(); }));
@@ -113,6 +155,7 @@ $('#expandTemplates').addEventListener('click', () => { expanded = !expanded; re
 
 $('#studioForm').addEventListener('submit', (event) => {
   event.preventDefault();
+  if (fontLoading) return;
   if (!state.text.trim()) {
     $('#studioStatus').textContent = '先写下一句话，再留下这一页。';
     $('#textInput').focus();
@@ -122,7 +165,7 @@ $('#studioForm').addEventListener('submit', (event) => {
   const button = $('.download-button');
   button.disabled = true;
   preview.toBlob((blob) => {
-    button.disabled = false;
+    updateDownloadState();
     if (!blob) { $('#studioStatus').textContent = '图片生成失败，请重试或在小程序中保存。'; return; }
     const url = URL.createObjectURL(blob);
     const link = document.createElement('a');
@@ -163,6 +206,8 @@ try {
   paint($('#heroFront'), { ...state, templateId:'seal', text:'山静日长\n清风入怀', direction:'vertical', reading:'rtl', fontSize:52 });
   renderGallery();
   updatePreview();
+  initHeroCards($('.hero-art'));
+  selectFont('song');
 } catch (error) {
   $('#studioStatus').textContent = error.message;
   $('.download-button').disabled = true;

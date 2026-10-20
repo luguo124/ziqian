@@ -38,4 +38,30 @@ for (const [, href] of html.matchAll(/(?:src|href)="([^"]+)"/g)) {
 assert.equal(html.match(/<h1\b/g).length,1);
 assert.ok(!html.includes('itunes.apple.com'), 'Old iPhone download must not replace the mini-program entry');
 assert.ok(!html.includes('http://'), 'No insecure external assets');
+const css = readFileSync(path.join(dist, 'styles.css'), 'utf8');
+const tokens = (block) => Object.fromEntries([...block.matchAll(/(--[\w-]+):\s*(#[\da-f]{6})/gi)].map(m => [m[1],m[2]]));
+const light = tokens(css.match(/:root\s*\{([^}]+)\}/)[1]);
+const dark = tokens(css.match(/:root\[data-theme="dark"\]\s*\{([^}]+)\}/)[1]);
+assert.deepEqual(dark, tokens(css.match(/:root:not\(\[data-theme="light"\]\)\s*\{([^}]+)\}/)[1]), 'System and manual dark themes must match');
+function luminance(hex) {
+  const rgb = hex.match(/[\da-f]{2}/gi).map(v => parseInt(v,16)/255).map(v => v <= .04045 ? v/12.92 : ((v+.055)/1.055)**2.4);
+  return rgb[0]*.2126 + rgb[1]*.7152 + rgb[2]*.0722;
+}
+function contrast(foreground, background) {
+  const a = luminance(foreground), b = luminance(background);
+  return (Math.max(a,b)+.05)/(Math.min(a,b)+.05);
+}
+for (const theme of [light,dark]) {
+  for (const background of ['--paper','--surface','--soft']) {
+    for (const foreground of ['--ink','--muted','--accent']) {
+      assert.ok(contrast(theme[foreground],theme[background]) >= 4.5, `${foreground}/${background} text contrast below 4.5:1`);
+    }
+  }
+  assert.ok(contrast(theme['--control-border'],theme['--surface']) >= 3, 'Input border contrast below 3:1');
+  assert.ok(contrast(theme['--control-border'],theme['--soft']) >= 3, 'Segment border contrast below 3:1');
+  assert.ok(contrast(theme['--selected-ink'],theme['--selected-bg']) >= 4.5, 'Selected direction contrast below 4.5:1');
+  assert.ok(contrast(theme['--button-text'],theme['--button']) >= 4.5, 'Button contrast below 4.5:1');
+}
+assert.ok(contrast(dark['--muted'],dark['--soft']) >= 7, 'Dark helper text should have at least 7:1 contrast');
+console.log('PASS: light/dark text, placeholder tokens, selected controls and borders meet contrast thresholds.');
 console.log(`PASS: ${drawings} render-state checks; 12 templates, 5 fonts, 5 seals; IDs, local assets and anchors.`);
