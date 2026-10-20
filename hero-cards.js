@@ -45,5 +45,4 @@ export function initHeroCards(container) {
       if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); swap(); }
     });
   });
-  container.querySelector('[data-swap-cards]').addEventListener('click',swap);
 }

@@ -39,13 +39,13 @@ function card(id) {
     setPointerCapture(){this.captured=true;},hasPointerCapture(){return this.captured;},releasePointerCapture(){this.captured=false;},
     getBoundingClientRect(){return {left:400,right:700};}};
 }
-const night = card('night'), seal = card('seal'), status = {}, swapButton = card('swap');
-const container = {dataset:{front:'seal'},querySelectorAll(){return [night,seal];},querySelector(selector){return selector.includes('status')?status:swapButton;}};
+const night = card('night'), seal = card('seal'), status = {};
+const container = {dataset:{front:'seal'},querySelectorAll(){return [night,seal];},querySelector(){return status;}};
 const { initHeroCards, clampCardDrag } = vm.runInNewContext(readFileSync(path.join(dist,'hero-cards.js'),'utf8').replace(/export /g,'')+'\n({initHeroCards,clampCardDrag})',{
   performance:{now:()=>now},document:{documentElement:{clientWidth:1280}}
 });
 initHeroCards(container);
-swapButton.events.click();
+night.events.click();
 assert.equal(container.dataset.front,'night');
 assert.equal(night.attrs['aria-pressed'],'true');
 seal.events.keydown({key:'Enter',preventDefault(){}});
@@ -70,4 +70,5 @@ const offset = clampCardDrag(500,-200,{left:400,right:700},800);
 assert.equal(offset.x,84);
 assert.equal(offset.y,-65);
 assert.ok(status.textContent.includes('夜墨'));
+assert.ok(!readFileSync(path.join(dist,'index.html'),'utf8').includes('data-swap-cards'),'Removed swap control must not return');
 console.log('PASS: five licensed WOFF2 assets; font loading cache/failure/retry; card click/keyboard/drag/cancel/bounds.');
