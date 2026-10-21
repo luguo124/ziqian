@@ -32,7 +32,7 @@ const html = readFileSync(path.join(dist, 'index.html'), 'utf8');
 const ids = [...html.matchAll(/\bid="([^"]+)"/g)].map(match => match[1]);
 assert.equal(new Set(ids).size, ids.length, 'Duplicate HTML IDs');
 for (const [, href] of html.matchAll(/(?:src|href)="([^"]+)"/g)) {
-  if (href.startsWith('./')) assert.ok(existsSync(path.join(dist, href)), `Missing asset: ${href}`);
+  if (href.startsWith('./')) assert.ok(existsSync(path.join(dist, href.split(/[?#]/)[0])), `Missing asset: ${href}`);
   if (href.startsWith('#') && href.length > 1) assert.ok(ids.includes(href.slice(1)), `Missing anchor: ${href}`);
 }
 assert.equal(html.match(/<h1\b/g).length,1);
