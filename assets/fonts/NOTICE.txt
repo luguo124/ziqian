@@ -1,0 +1,51 @@
+字签小程序字体来源及授权
+
+以下字体以 SIL Open Font License 1.1 分发。允许随软件嵌入、缓存、再分发及商用，但不得单独出售字库。请保留各字体原始许可证；不得将作者姓名用于为修改版背书。
+
+思源宋体 CN Regular 2.003：Adobe。原始文件不修改、不转换。
+Copyright 2017-2024 Adobe (http://www.adobe.com/), with Reserved Font Name 'Source'.
+来源：https://github.com/adobe-fonts/source-han-serif/tree/2.003R
+许可：sourcehan-OFL.txt
+
+霞鹜文楷 Regular 1.530：LXGW / The Klee Project Authors。原始 TTF 不修改、不转换，不依赖保留名称转换特例。
+Copyright 2021-2026 LXGW (https://github.com/lxgw/LxgwWenKai).
+Copyright 2020 The Klee Project Authors (https://github.com/fontworks-fonts/Klee).
+保留名称：霞鹜、霞鶩、落霞孤鹜、落霞孤鶩、LXGW。
+来源：https://github.com/lxgw/LxgwWenKai/releases/tag/v1.530
+许可：wenkai-OFL.txt
+
+香萃刻宋 1.501、香萃潮汐宋 W15 1.000、香萃积雪宋 1.000：作者 Miiiller / 香萃。保留作者仓库原始文件，不修改、不转换。
+来源：https://github.com/Miiiller/Xiangcui-Kesong
+来源：https://github.com/Miiiller/Xiangcui-Chaoxisong
+来源：https://github.com/Miiiller/Xiangcui-Jixuesong
+许可：kesong-OFL.txt、chaoxi-OFL.txt、jixue-OFL.txt
+
+小薇宋、马善政、志莽行书、刘建毛草、龙藏：沿用现有 Google Fonts OFL 字库及 WOFF2 资源。版权及许可全文分别见 zcoolxiaowei-OFL.txt、mashanzheng-OFL.txt、zhimangxing-OFL.txt、liujianmaocao-OFL.txt、longcang-OFL.txt。
+
+“默认字体”为设备默认衬线字体，不下载、不复制或再分发任何操作系统字库文件。
+
+2026-10-21 新增六款，均保留原始字体，不子集化、不转换：
+
+朱雀仿宋 technical preview 0.212：TrionesType / Zhejiang JadeFoci Techonology Co. LTD。
+来源：https://github.com/TrionesType/zhuque/releases/tag/v0.212
+许可：zhuque-OFL.txt。原始 ZIP 仅解压，不修改其中字库；技术预览版不代表作者已宣布生产就绪。
+
+霞鹜臻楷 Slab GB Regular 0.827：LXGW、The Klee Project Authors、The Batang and Gungsuh Project Authors。
+来源：https://github.com/lxgw/LxgwZhenKai/releases/tag/v0.827
+许可：zhenkai-OFL.txt。保留其 RFN 声明，使用原始 TTF，不依赖转换特例。
+
+悠哉字体 Regular 0.868：LXGW、Y.Oz (Y.OzVox)。
+来源：https://github.com/lxgw/yozai-font/releases/tag/v0.868
+许可：yozai-OFL.txt。包含 Y.Oz / YOz 保留名称条款，使用原始 TTF。
+
+小赖字体 Regular 3.126：LXGW、Nozomi Seto；依作者项目说明致谢上游 Tanugo、内海字体与 cjkFonts 全濑体。
+来源：https://github.com/lxgw/kose-font/releases/tag/v3.126
+许可：xiaolai-OFL.txt，使用原始 TTF。
+
+霞鹜漫黑 Regular 1.001：The LXGW Marker Gothic Project Authors；采用 Google Fonts 官方固定提交发布的原始 TTF，非作者仓库最新版本。
+来源：https://github.com/google/fonts/tree/47d54ca1ebb14fd864695f1d39dc734f39017c33/ofl/lxgwmarkergothic
+许可：marker-OFL.txt。
+
+思源黑体 CN Regular 2.005：Adobe，保留 Source 保留名称声明。
+来源：https://github.com/adobe-fonts/source-han-sans/tree/2.005R
+许可：sourcehansans-OFL.txt，使用原始 OTF。
