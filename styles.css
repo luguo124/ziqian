@@ -21,7 +21,9 @@ h1,h2,h3 { margin:0; font-weight:500; font-family:var(--serif); }
 .section-width { width:min(1200px,calc(100% - 96px)); margin-inline:auto; }
 .site-header { width:min(1360px,calc(100% - 80px)); margin:auto; height:80px; display:flex; align-items:center; justify-content:space-between; border-bottom:1px solid var(--line); gap:24px; }
 .brand { display:inline-flex; align-items:center; gap:12px; font:600 24px var(--serif); letter-spacing:3px; white-space:nowrap; }
-.brand-mark { display:block; flex-shrink:0; width:36px; height:36px; object-fit:contain; border-radius:0; }
+.brand-mark { display:block; flex-shrink:0; width:36px; height:36px; object-fit:contain; border-radius:22%; }
+:root[data-theme="dark"] .brand-mark { filter:invert(1) hue-rotate(180deg); }
+@media(prefers-color-scheme:dark) { :root:not([data-theme="light"]) .brand-mark { filter:invert(1) hue-rotate(180deg); } }
 .site-header nav { display:flex; gap:36px; margin-left:auto; margin-right:40px; font-size:14px; }
 .site-header nav a { padding-block:12px; }
 .site-header nav a:hover,.text-link:hover,.site-footer>a:last-child:hover { color:var(--accent); }
